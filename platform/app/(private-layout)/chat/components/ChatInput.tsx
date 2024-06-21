@@ -5,13 +5,19 @@ import { Input } from "@/components/Input";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 
-export default function ChatInput() {
+type P = {
+  onMessage:(message:string)=>void
+}
+
+const ChatInput = (
+  { onMessage }:Readonly<P>
+)  => {
   const router = useRouter();
   const { toast } = useToast();
 
   async function handleSubmit(formData: FormData) {
     const message = formData.get("message") as string;
-    
+    onMessage(message)
   }
 
   return (
@@ -29,3 +35,5 @@ export default function ChatInput() {
     </form>
   );
 }
+
+export default ChatInput;
